@@ -32,7 +32,13 @@ func (u *User) CreateUser() (err error) {
 		created_at
 	) values (?, ?, ?, ?, ?)`
 
-	_, err = Db.Exec(cmd, createUUID(), u.Name, u.Email, Encrypt(u.PassWord), time.Now())
+	_, err = Db.Exec(cmd,
+		createUUID(),
+		u.Name,
+		u.Email,
+		Encrypt(u.PassWord),
+		time.Now())
+
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -42,7 +48,7 @@ func (u *User) CreateUser() (err error) {
 func GetUser(id int) (user User, err error) {
 	user = User{}
 	cmd := `select id, uuid, name, email, password, created_at from users where id = ?`
-	err = Db.QueryRow(cmd, id).Scan(
+	err = Db.QueryRow(cmd, id).Scan(   //データ取得
 		&user.ID,
 		&user.UUID,
 		&user.Name,
@@ -55,6 +61,7 @@ func GetUser(id int) (user User, err error) {
 
 func (u *User) UpdateUser() (err error) {
 	cmd := `update users set name = ?, email = ? where id = ?`
+	//Exec関数はDBの変更操作に使う
 	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
 	if err != nil {
 		log.Fatalln(err)
@@ -74,7 +81,14 @@ func (u *User) DeleteUser() (err error) {
 func GetUserByEmail(email string) (user User, err error) {
 	user = User{}
 	cmd := `select id, uuid, name, email, password, created_at from users where email = ?`
-	err = Db.QueryRow(cmd, email).Scan(&user.ID, &user.UUID, &user.Name, &user.Email, &user.PassWord, &user.CreatedAt)
+	err = Db.QueryRow(cmd, email).Scan(
+		&user.ID,
+		&user.UUID,
+		&user.Name,
+		&user.Email,
+		&user.PassWord,
+		&user.CreatedAt)
+
 	return user, err
 }
 
@@ -88,7 +102,12 @@ func (u *User) CreateSession() (session Session, err error) {
 	}
 
 	cmd2 := `select id, uuid, email, user_id, created_at from sessions where user_id = ? and email = ?`
-	err = Db.QueryRow(cmd2, u.ID, u.Email).Scan(&session.ID, &session.UUID, &session.Email, &session.UserID, &session.CreatedAt)
+	err = Db.QueryRow(cmd2, u.ID, u.Email).Scan(
+		&session.ID,
+		&session.UUID,
+		&session.Email,
+		&session.UserID,
+		&session.CreatedAt)
 
 	return session, err
 }
@@ -96,7 +115,12 @@ func (u *User) CreateSession() (session Session, err error) {
 func (sess *Session) CheckSession() (valid bool, err error) {
 	cmd := `select id, uuid, email, user_id, created_at from sessions where uuid = ?`
 
-	err = Db.QueryRow(cmd, sess.UUID).Scan(&sess.ID, &sess.UUID, &sess.Email, &sess.UserID, &sess.CreatedAt)
+	err = Db.QueryRow(cmd, sess.UUID).Scan(
+		&sess.ID,
+		&sess.UUID,
+		&sess.Email,
+		&sess.UserID,
+		&sess.CreatedAt)
 	
 	if err != nil {
 		valid = false

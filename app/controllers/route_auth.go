@@ -15,7 +15,7 @@ func signup(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/todos", 302)
 		}
 	} else if r.Method == "POST" {
-		err := r.ParseForm()
+		err := r.ParseForm()  //入力フォームの解析(必ずする)
 		if err != nil {
 			log.Println(err)
 		}
@@ -42,7 +42,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 }
 
 func authenticate(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
+	err := r.ParseForm()  //HTTPリクエストのフォームデータを解析して、利用可能な形式に変える
 	user, err := models.GetUserByEmail(r.PostFormValue("email"))
 	if err != nil {
 		log.Println(err)
