@@ -1,5 +1,7 @@
 package config
 
+//configファイルはiniファイルでなくても、jsonファイルやyamlファイルでもいける
+
 import (
 	"log"
 	"gostudy/application/utils"

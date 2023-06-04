@@ -1,7 +1,8 @@
 package models
 
 import (
-	"crypto/sha1"
+	// "crypto/sha1"
+	"golang.org/x/crypto/bcrypt"
 	"fmt"
 	"log"
 	"database/sql"
@@ -23,21 +24,22 @@ const (
 )
 
 func init() {
-	Db, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)
+	Db, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)  //ドライバーの名前, DBの名前
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		uuid STRING NOT NULL UNIQUE,
+		uuid STRING NOT NULL UNIQUE,   
 		name STRING,
 		email STRING,
 		password STRING,
 		created_at DATETIME
 	)`, tableNameUser)
+	//uuidはユーザーを識別するためのもの
 
-	Db.Exec(cmdU)
+	Db.Exec(cmdU) //データベースへのSQLクエリを実行するために使用される
 
 	cmdT := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,11 +60,18 @@ func init() {
 }
 
 func createUUID() (uuidobj uuid.UUID) {
-	uuidobj, _ = uuid.NewUUID()
+	uuidobj, _ = uuid.NewUUID()   //完全な一意性はない
 	return uuidobj
 }
 
-func Encrypt(plaintext string) (cryptext string) {
-	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
-	return cryptext
+//sha1は推奨されていない
+// func Encrypt(plaintext string) (cryptext string) {
+// 	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
+// 	return cryptext
+// }
+
+//bcryptを使用する
+func Encrypt(plaintext string) string {
+	hash, _ := bcrypt.GenerateFromPassword([]byte(plaintext), bcrypt.DefaultCost)
+	return string(hash)
 }
