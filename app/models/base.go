@@ -1,7 +1,6 @@
 package models
 
 import (
-	// "crypto/sha1"
 	"golang.org/x/crypto/bcrypt"
 	"fmt"
 	"log"

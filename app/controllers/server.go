@@ -24,7 +24,7 @@ func generateHTML(w http.ResponseWriter, data interface{}, filenames ...string){
 }
 
 func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err error) {
-	cookie, err := r.Cookie("_cookie")
+	cookie, err := r.Cookie("_cookie")  //_cookieの名前のcookieをチェックする
 	if err == nil {
 		sess = models.Session{UUID: cookie.Value}
 		if ok, _ := sess.CheckSession(); !ok {
@@ -34,7 +34,7 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	return sess, err
 }
 
-var validPath = regexp.MustCompile("^/todos/(edit|update|delete)/([0-9]+)$")
+var validPath = regexp.MustCompile("^/todos/(edit|update|delete)/([0-9]+)$")   //todos/edit/メモのIDのような感じになる
 
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +43,7 @@ func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc
 			http.NotFound(w, r)
 			return
 		}
-		qi, err := strconv.Atoi(q[2])
+		qi, err := strconv.Atoi(q[2])   //0グループは/todos/edit/???, 1グループはedit, 2グループは???に対応
 		if err != nil {
 			http.NotFound(w, r)
 			return
@@ -59,7 +59,7 @@ func StartMainServer() error {
 	http.HandleFunc("/", top)
 	http.HandleFunc("/signup", signup)
 	http.HandleFunc("/login", login)
-	http.HandleFunc("/authenticate", authenticate)
+	http.HandleFunc("/authenticate", authenticate)  //loginのformタグにaction属性としてつけている
 	http.HandleFunc("/logout", logout)
 	http.HandleFunc("/todos", index)
 	http.HandleFunc("/todos/new", todoNew)
