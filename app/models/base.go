@@ -1,8 +1,8 @@
 package models
 
 import (
-	"crypto/sha1"
-	// "golang.org/x/crypto/bcrypt"
+	// "crypto/sha1"
+	"golang.org/x/crypto/bcrypt"
 	"fmt"
 	"log"
 	"database/sql"
@@ -65,13 +65,27 @@ func createUUID() (uuidobj uuid.UUID) {
 }
 
 //sha1は推奨されていない
-func Encrypt(plaintext string) (cryptext string) {
-	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
-	return cryptext
+// func Encrypt(plaintext string) (cryptext string) {
+// 	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
+// 	return cryptext
+// }
+
+//bcryptを使用する(少し計算コスト高い)(うまく動かない)
+func Encrypt(plaintext string) string {
+	cost := 10
+	hash, err := bcrypt.GenerateFromPassword([]byte(plaintext), cost)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return string(hash)
 }
 
-//bcryptを使用する(少し計算コスト高い)
-// func Encrypt(plaintext string) string {
-// 	hash, _ := bcrypt.GenerateFromPassword([]byte(plaintext), bcrypt.DefaultCost)
-// 	return string(hash)
-// }
+func CheckPassword(hash string, plaintext string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(plaintext))
+	if err != nil {
+		return false
+	} else {
+		return true
+	}
+}

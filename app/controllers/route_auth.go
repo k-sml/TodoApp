@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"gostudy/application/app/models"
+	// "golang.org/x/crypto/bcrypt"
 )
 
 func signup(w http.ResponseWriter, r *http.Request) {
@@ -43,12 +44,16 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 func authenticate(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()  //HTTPリクエストのフォームデータを解析して、利用可能な形式に変える
+	if err != nil {
+		log.Println(err)
+	}
 	user, err := models.GetUserByEmail(r.PostFormValue("email"))
 	if err != nil {
 		log.Println(err)
 		http.Redirect(w, r, "/login", 302)
 	}
-	if user.PassWord == models.Encrypt(r.PostFormValue("password")) {
+	// if user.PassWord == models.Encrypt(r.PostFormValue("password")) {
+	if models.CheckPassword(user.PassWord, r.PostFormValue("password")) {
 		session, err := user.CreateSession()
 		if err != nil {
 			log.Println(err)
