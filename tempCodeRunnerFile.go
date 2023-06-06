@@ -1,1 +1,0 @@
-"gostudy/application/config"

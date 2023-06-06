@@ -8,12 +8,15 @@ import (
 	"gostudy/application/config"
 
 	"github.com/google/uuid"
+	// "github.com/lib/pq"
 
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var Db *sql.DB
 
 var err error
+
 
 const (
 	tableNameUser = "users"
@@ -21,13 +24,17 @@ const (
 	tableNameSession = "sessions"
 )
 
+
 func init() {
 
-	url := os.Getenv("DATABASE_URL")
-	connection, _ := pq.ParseURL(url)
-	connection += "sslmode=require"
-	Db, err = sql.Open()
-	/*
+	// url := os.Getenv("DATABASE_URL")
+	// connection, _ := pq.ParseURL(url)
+	// connection += "sslmode=require"
+	// Db, err = sql.Open(config.Config.SQLDriver, connection)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	
 	Db, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)  //ドライバーの名前, DBの名前
 	if err != nil {
 		log.Fatalln(err)
@@ -61,7 +68,7 @@ func init() {
 		created_at DATETIME
 	)`, tableNameSession)
 	Db.Exec(cmdS)
-	*/
+	
 }
 
 func createUUID() (uuidobj uuid.UUID) {

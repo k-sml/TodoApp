@@ -68,8 +68,8 @@ func StartMainServer() error {
 	http.HandleFunc("/todos/update/", parseURL(todoUpdate))
 	http.HandleFunc("/todos/delete/", parseURL(todoDelete))
 
-	port := os.Getenv("PORT")
-	return http.ListenAndServe(":" + port, nil)   //ホスト部分を省略するとデフォルトでlocalhostがつく
+	// port := os.Getenv("PORT")
+	return http.ListenAndServe(":"+config.Config.Port, nil)   //ホスト部分を省略するとデフォルトでlocalhostがつく
 	// 第二引数をnilにするとデフォルトのマルチプレクサが使用される
 	// 登録されたハンドラー関数をURLパスに基づいて呼び出す（何も登録していなかったらpage not found 404 errorが表示される)
 }
