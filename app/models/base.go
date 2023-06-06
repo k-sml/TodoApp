@@ -9,7 +9,6 @@ import (
 
 	"github.com/google/uuid"
 
-	_ "github.com/mattn/go-sqlite3"
 )
 
 var Db *sql.DB
@@ -23,6 +22,12 @@ const (
 )
 
 func init() {
+
+	url := os.Getenv("DATABASE_URL")
+	connection, _ := pq.ParseURL(url)
+	connection += "sslmode=require"
+	Db, err = sql.Open()
+	/*
 	Db, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)  //ドライバーの名前, DBの名前
 	if err != nil {
 		log.Fatalln(err)
@@ -56,6 +61,7 @@ func init() {
 		created_at DATETIME
 	)`, tableNameSession)
 	Db.Exec(cmdS)
+	*/
 }
 
 func createUUID() (uuidobj uuid.UUID) {
