@@ -1,6 +1,7 @@
 package config
 
-//configファイルはiniファイルでなくても、jsonファイルやyamlファイルでもいける
+//configファイルはiniファイルでなくても、jsonファイルやyamlファイルでもok
+
 
 import (
 	"log"
