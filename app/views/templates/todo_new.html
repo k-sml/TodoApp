@@ -1,12 +1,63 @@
 {{define "content"}}
-<form role="form" action="/todos/save" method="post">
-    <div class="lead">TodosCreate</div>
-    <div class="form-group">
-        <textarea class="form-control" name="content" id="content" placeholder="Todoを追加" rows="4"></textarea>
-        <br />
-        <br />
-        <button class="btn btn-lg btn-primary pull-right" type="submit">作成</button>
-    </div>
-</form>
+<style>
+    /* カードのスタイル */
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 15px;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .card-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+    }
+
+    .todoapp-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>
+<h1 class="todoapp-heading">Life Hack</h1>
+
+<div class="card">
+    <h2 class="card-heading">Create</h2>
+
+    <form class="form-create" role="form" action="/todos/save" method="post">
+        <div class="form-group">
+            <textarea class="form-control" name="content" id="content" placeholder="Todoを作成"
+                rows="10">{{.Content}}</textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+</div>
+
 
 {{end}}

@@ -1,16 +1,67 @@
 {{ define "content" }}
-<h1 class="text-center">login</h1>
-<form class="form-signin center" role="form" action="/authenticate" method="post">
+<style>
+    .form-signin-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 15px;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-signin-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .icon-comments {
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-login-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .form-login {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 30px
+    }
+
+    .form-login-input {
+        margin-bottom: 10px;
+    }
+
+    .form-login-link {
+        float: right;
+        font-size: 14px;
+    }
+</style>
+
+<div class="form-signin-container">
     <h2 class="form-signin-heading">
-        <i class="fa fa-comments-o">
-            SampleApp
-        </i>
+        <i class="fa fa-comments-o icon-comments"></i>
+        Life Hack
     </h2>
-    <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-    <input type="password" name="password" class="form-control" placeholder="パスワード">
-    <br />
-    <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
-    <br />
-    <a class="lead pull-right" href="/signup">登録</a>
-</form>
+    <h1 class="form-login-heading">Login</h1>
+
+    <form class="form-login" role="form" action="/authenticate" method="post">
+        <input type="email" name="email" class="form-control form-login-input" placeholder="Email" required autofocus>
+        <input type="password" name="password" class="form-control form-login-input" placeholder="Password">
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+        <br />
+        <a class="form-login-link" href="/signup">ログインがまだの方</a>
+    </form>
+</div>
+
 {{end}}

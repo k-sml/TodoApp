@@ -1,17 +1,62 @@
 {{define "content" }}
-<h1 class="text-center">signup</h1>
+<style>
+    .form-signin-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 15px;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
 
+    .form-signin-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-<form class="form-signin" role="form" action="/signup" method="post">
+    .icon-comments {
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-signup-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .form-signup {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 30px
+    }
+
+    .form-signup-input {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="form-signin-container">
     <h2 class="form-signin-heading">
-        <i class="fa fa-comments-o">
-            SampleApp
-        </i>
+        <i class="fa fa-comments-o icon-comments"></i>
+        Life Hack
     </h2>
-    <div class="lead">登録</div>
-    <input id="name" type="text" name="name" class="form-control" placeholder="お名前" required autofocus>
-    <input type="email" name="email" class="form-control" placeholder="Email" required>
-    <input type="password" name="password" class="form-control" placeholder="パスワード" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">登録</button>
-</form>
+
+    <h1 class="form-signup-heading">Signup</h1>
+
+    <form class="form-signup" role="form" action="/signup" method="post">
+        <input id="name" type="text" name="name" class="form-control form-signup-input" placeholder="ユーザー名" required
+            autofocus>
+        <input type="email" name="email" class="form-control form-signup-input" placeholder="Email" required>
+        <input type="password" name="password" class="form-control form-signup-input" placeholder="パスワード" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登録</button>
+    </form>
+</div>
+
 {{end}}

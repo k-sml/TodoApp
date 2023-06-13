@@ -1,4 +1,36 @@
 {{define "content"}}
-<h1>Top</h1>
-{{.}}
+<style>
+    .form-signin {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 15px;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-signin-heading {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .icon-comments {
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="form-signin">
+    <h2 class="form-signin-heading">
+        <i class="fa fa-comments-o icon-comments"></i>
+        Life Hack
+    </h2>
+    {{.}}
+</div>
+
 {{end}}
