@@ -9,7 +9,7 @@ import (
 func top(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
-		generateHTML(w, "Hello", "layout", "public_navbar", "top")
+		generateHTML(w, nil, "layout", "public_navbar", "top")
 	} else {
 		http.Redirect(w, r, "/todos", 302)
 	}
@@ -24,7 +24,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
-		todos, _ := user.GetTodosByUser()
+		// titles, _ := user.GetTodosTitleByUser()
+		// user.Titles = titles
+		todos, _, _ := user.GetTodosByUser()
+		// user.Titles = titles
 		user.Todos = todos
 		generateHTML(w, user, "layout", "private_navbar", "index")
 	}
@@ -52,8 +55,9 @@ func todoSave(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
+		title := r.PostFormValue("title")
 		content := r.PostFormValue("content")
-		if err := user.CreateTodo(content); err != nil {
+		if err := user.CreateTodo(title, content); err != nil {
 			log.Println(err)
 		}
 
@@ -91,8 +95,9 @@ func todoUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		if err != nil {
 			log.Println(err)
 		}
+		title := r.PostFormValue("title")
 		content := r.PostFormValue("content")
-		t := &models.Todo{ID: id, Content: content, UserID: user.ID}
+		t := &models.Todo{ID: id, Title: title, Content: content, UserID: user.ID}
 		if err := t.UpdateTodo(); err != nil {
 			log.Println(err)
 		}

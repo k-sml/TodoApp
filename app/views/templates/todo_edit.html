@@ -52,8 +52,9 @@
     <h2 class="card-heading">Update</h2>
 
     <form class="form-edit" role="form" action="/todos/update/{{.ID}}" method="post">
+        <textarea class="form-control" name="title" id="content" placeholder="Titleを編集">{{.Title}}</textarea>
         <div class="form-group">
-            <textarea class="form-control" name="content" id="content" placeholder="Todoを更新"
+            <textarea class="form-control" name="content" id="content" placeholder="Todoを編集"
                 rows="10">{{.Content}}</textarea>
         </div>
         <button class="btn btn-primary" type="submit">Update</button>

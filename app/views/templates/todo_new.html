@@ -51,6 +51,7 @@
     <h2 class="card-heading">Create</h2>
 
     <form class="form-create" role="form" action="/todos/save" method="post">
+        <textarea class="form-control" name="title" id="title" placeholder="Titleを設定">{{.Title}}</textarea>
         <div class="form-group">
             <textarea class="form-control" name="content" id="content" placeholder="Todoを作成"
                 rows="10">{{.Content}}</textarea>

@@ -13,6 +13,7 @@ type User struct {
 	PassWord string
 	CreatedAt time.Time
 	Todos []Todo
+	Titles []string
 }
 
 type Session struct {

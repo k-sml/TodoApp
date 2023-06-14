@@ -25,7 +25,7 @@
         border-radius: 5px;
     }
 
-    .todo-item-content {
+    .todo-item-title {
         font-size: 18px;
         margin-bottom: 10px;
     }
@@ -47,7 +47,7 @@
 
     {{ range .Todos }}
     <div class="todo-item">
-        <div class="todo-item-content">{{ .Content }}</div>
+        <div class="todo-item-title">{{ .Title }}</div>
         <a href="/todos/edit/{{.ID}}" class="btn btn-primary btn-todo">Edit</a>
         <a href="/todos/delete/{{.ID}}" class="btn btn-primary btn-todo">Delete</a>
     </div>
