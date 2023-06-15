@@ -57,11 +57,17 @@ func todoSave(w http.ResponseWriter, r *http.Request) {
 		}
 		title := r.PostFormValue("title")
 		content := r.PostFormValue("content")
-		if err := user.CreateTodo(title, content); err != nil {
-			log.Println(err)
-		}
-
-		http.Redirect(w, r, "/todos", 302)
+		if title == "" && content == "" {
+			http.Redirect(w, r, "/todos", 302)
+		}else {
+			if title == "" {
+				title = "No Title"
+			}
+			if err := user.CreateTodo(title, content); err != nil {
+				log.Println(err)
+			}
+			http.Redirect(w, r, "/todos", 302)
+		}		
 	}
 }
 
