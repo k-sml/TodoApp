@@ -57,7 +57,8 @@ func init() {
 		content TEXT,
 		title STRING,
 		user_id INTEGER,
-		created_at DATETIME
+		created_at DATETIME,
+		formatted_created_at STRING
 	)`, tableNameTodo)
 	Db.Exec(cmdT)
 

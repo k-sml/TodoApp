@@ -4,6 +4,7 @@ import (
 	"gostudy/application/app/models"
 	"log"
 	"net/http"
+	"time"
 )
 
 func top(w http.ResponseWriter, r *http.Request) {
@@ -103,7 +104,7 @@ func todoUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		}
 		title := r.PostFormValue("title")
 		content := r.PostFormValue("content")
-		t := &models.Todo{ID: id, Title: title, Content: content, UserID: user.ID}
+		t := &models.Todo{ID: id, Title: title, Content: content, UserID: user.ID, FormattedCreatedAt: time.Now().Format("15:04")}
 		if err := t.UpdateTodo(); err != nil {
 			log.Println(err)
 		}

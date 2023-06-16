@@ -18,6 +18,10 @@
     }
 
     .todo-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 10px;
         padding: 10px;
         background-color: #fff;
@@ -26,33 +30,43 @@
     }
 
     .todo-item-title {
+        flex: 1;
         font-size: 18px;
-        margin-bottom: 10px;
+        margin-right: 10px;
+        word-break: break-all;
+    }
+
+    .todo-item-time {
+        font-size: 14px;
+        color: #888;
+        margin-right: 10px;
+    }
+
+    .todo-item-buttons {
+        display: flex;
+        gap: 5px;
     }
 
     .btn-todo {
         width: 70px;
-        margin-right: 5px;
     }
 </style>
 
 <h1 class="todoapp-heading">Life Hack</h1>
 <div class="todoapp-container">
-
-
     <h1 class="todoapp-heading">{{ .Name }} Task</h1>
-
     <a href="/todos/new" class="btn btn-primary">Add Todo!</a>
     <hr>
-
     {{ range .Todos }}
     <div class="todo-item">
         <div class="todo-item-title">{{ .Title }}</div>
-        <a href="/todos/edit/{{.ID}}" class="btn btn-primary btn-todo">Edit</a>
-        <a href="/todos/delete/{{.ID}}" class="btn btn-primary btn-todo">Delete</a>
+        <div class="todo-item-time">{{ .FormattedCreatedAt }}</div>
+        <div class="todo-item-buttons">
+            <a href="/todos/edit/{{.ID}}" class="btn btn-primary btn-todo">Edit</a>
+            <a href="/todos/delete/{{.ID}}" class="btn btn-primary btn-todo">Delete</a>
+        </div>
     </div>
     <hr>
     {{ end }}
 </div>
-
 {{end}}
