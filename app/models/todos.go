@@ -21,7 +21,7 @@ func (u *User) CreateTodo(title string, content string) (err error) {
 		user_id,
 		created_at,
 		formatted_created_at) values (?, ?, ?, ?, ?)`
-	_, err = Db.Exec(cmd, content, title, u.ID, time.Now(), time.Now().Format("15:04"))
+	_, err = Db.Exec(cmd, content, title, u.ID, time.Now(), time.Now().Format("2006-01-02 15:04"))
 	if err != nil {
 		log.Fatalln(err)
 	}

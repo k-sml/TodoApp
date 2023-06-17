@@ -104,7 +104,7 @@ func todoUpdate(w http.ResponseWriter, r *http.Request, id int) {
 		}
 		title := r.PostFormValue("title")
 		content := r.PostFormValue("content")
-		t := &models.Todo{ID: id, Title: title, Content: content, UserID: user.ID, FormattedCreatedAt: time.Now().Format("15:04")}
+		t := &models.Todo{ID: id, Title: title, Content: content, UserID: user.ID, FormattedCreatedAt: time.Now().Format("2006-01-02 15:04")}
 		if err := t.UpdateTodo(); err != nil {
 			log.Println(err)
 		}
